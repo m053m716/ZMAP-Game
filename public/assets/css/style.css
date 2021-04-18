@@ -62,7 +62,7 @@ h6 {
   padding-top: 50px;
   padding-bottom: 50px;
   text-align: center;
-  color: #f8f8f8;
+  color: #d0a6a3;
   background: url(../img/intro-bg.jpg)no-repeatcentercenter;
   background-size: cover;
 }
@@ -78,7 +78,7 @@ h6 {
 }
 .intro-divider {
   width: 400px;
-  border-top: 1px solid #f8f8f8;
+  border-top: 1px solid #d0a6a3;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 .intro-message > h3 {
@@ -111,7 +111,7 @@ h6 {
 }
 .content-section-a {
   padding: 50px 0;
-  background-color: #f8f8f8;
+  background-color: #d0a6a3;
 }
 .content-section-b {
   padding: 50px 0;
@@ -128,7 +128,7 @@ h6 {
 }
 .banner {
   padding: 100px 0;
-  color: #f8f8f8;
+  color: #d0a6a3;
   background: url(../img/banner-bg.jpg)no-repeatcentercenter;
   background-size: cover;
 }
