@@ -20,12 +20,14 @@ app.get("/", (request, response) => {
 app.get("/characters", (request, response) => {
   response.sendFile(__dirname + "/views/characters.html");
 });
+app.get("/profile", (request, response) => {
+  
+})
 
 // send the array of docs to the webpage
 app.get("/mongo/characters", async (request, response) => {
-  let query = JSON.stringify(request.query);
-  console.log(query);
-  await cluster.get_docs('Characters', 'Saltmarsh', query);
+  console.log(request.query);
+  await cluster.get_docs('Characters', 'Saltmarsh', request.query);
   response.json(cluster.data);
 });
 
