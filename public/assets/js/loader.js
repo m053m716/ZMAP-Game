@@ -64,8 +64,6 @@ class Loader {
   }
 }
 const loader = new Loader();
-$( document ).ready(function() {
-  loader.addBanner(document);
-  loader.addButtons(document);
+$( document ).ready(e => {
   loader.addNavigation(document);
 });
