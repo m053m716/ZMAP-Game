@@ -118,14 +118,15 @@
     
     <script src="assets/js/jquery.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/loader.js" defer></script>
-    <script>
+    <script src="assets/js/loader.js"></script>
+    <script src="assets/js/client.js" defer></script>
+    <script defer>
       "use strict";
       $(document).ready((e) => {
         loader.addBanner(document);
-        loader.addButtons(document);                  
+        loader.addButtons(document);
+        document.getElementById('loginForm').addEventListener('submit', client.startSession);
       })
-      document.getElementById('loginForm').addEventListener('submit', client.startSession);
     </script>
   </body>
 </html>

@@ -42,7 +42,7 @@ class Loader {
       <div id="loginModal" class="modal fade">
         <div class="modal-dialog modal-login">
           <div class="modal-content">
-            <form id="loginForm" action="https://zmap-game.glitch.me/login" method="post">
+            <form id="loginForm" action="" method="get">
               <div class="modal-header">				
                 <h4 class="modal-title">Login</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -63,7 +63,7 @@ class Loader {
               </div>
               <div class="modal-footer justify-content-between">
                 <label class="form-check-label"><input type="checkbox" name="remember"> Remember me</label>
-                <input type="submit" class="btn btn-primary" value="Login">
+                <input type="submit" class="btn btn-primary" value="Login" onclick="client.startSession">
               </div>
             </form>
           </div>

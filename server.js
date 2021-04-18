@@ -24,7 +24,7 @@ app.get("/profile", (request, response) => {
 })
 
 app.get("/login", (request, response) => {
-  response.status(201).send('Login requeset received.');
+  response.status(201).send('Checking username and password...');
 })
 
 // send the array of docs to the webpage
