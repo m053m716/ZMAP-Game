@@ -25,24 +25,20 @@ class Client {
   applyFilters() {
     // Get query object
     let query = {
-      "game": this.filters.elements.game.value,
       "type": this.filters.elements.type.value,
       "race": this.filters.elements.race.value
     }
     
     // fetch the initial list of docs
     let u = new URLSearchParams(query).toString();
-    fetch("/mongo/characters")
+    fetch("/mongo/characters?" + u)
       .then(response => response.json()) // parse the JSON from the server
       .then(data => {
         // remove the loading text
-        if (this.flags.new) {
-          this.characters.firstElementChild.remove();
-          this.flags.new = false;
-        }
+        this.characters.firstElementChild.remove();
 
         // format the data
-        let characters = this._formatCharacters(data);
+        let characters = Client._formatCharacters(data);
         characters.forEach(ch => this.appendCharacter(ch));
     });
   }
@@ -55,9 +51,9 @@ $( document ).ready(function() {
     // stop our form submission from refreshing the page
     event.preventDefault();
     client.applyFilters();
-    // reset form
-    client.filters.reset();
-    client.filters.elements.game.focus();
+    // // reset form
+    // client.filters.reset();
+    // client.filters.elements.game.focus();
     console.log("client-side interface is ready");
   });
 });
