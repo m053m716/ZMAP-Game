@@ -36,7 +36,10 @@ module.exports = class MongoAccessor {
           console.log("Query error!");
           console.log(err_query);
         } else {
-          this.docs = result;
+          this.docs.length = 0;
+          result.forEach(doc => {
+            this.docs.push("" + doc.name.first + " " + doc.name.last + ": " + doc.about);
+          })
           if (cb !== null) {
             await cb(result);
           }

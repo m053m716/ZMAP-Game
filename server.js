@@ -9,11 +9,13 @@ const express = require("express");
 const app = express();
 
 // our default array of docs
-const docs = [
-  "Find and count some sheep",
-  "Climb a really tall mountain",
-  "Wash the dishes"
-];
+// const docs = [
+//   "Find and count some sheep",
+//   "Climb a really tall mountain",
+//   "Wash the dishes"
+// ];
+const cluster = MongoAccessor();
+
 
 // make all the files in 'public' available
 // https://expressjs.com/en/starter/static-files.html
@@ -25,9 +27,10 @@ app.get("/", (request, response) => {
 });
 
 // send the default array of docs to the webpage
-app.get("/docs", (request, response) => {
+app.get("/docs", async (request, response) => {
+  await cluster.get_docs('Characters','Saltmarsh',{"type": "pc"})
   // express helps us take JS objects and send them as JSON
-  response.json(docs);
+  response.json(cluster.docs);
 });
 
 // listen for requests :)

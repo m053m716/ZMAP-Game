@@ -8,34 +8,34 @@ const docsList = document.getElementById("documents");
 const docsForm = document.querySelector("form");
 
 // a helper function that creates a list item for a given dream
-function appendNewDream(dream) {
+function appendNewDocument(doc) {
   const newListItem = document.createElement("li");
-  newListItem.innerText = dream;
-  dreamsList.appendChild(newListItem);
+  newListItem.innerText = doc;
+  docsList.appendChild(newListItem);
 }
 
-// fetch the initial list of dreams
-fetch("/dreams")
+// fetch the initial list of docs
+fetch("/docs")
   .then(response => response.json()) // parse the JSON from the server
-  .then(dreams => {
+  .then(docs => {
     // remove the loading text
-    dreamsList.firstElementChild.remove();
-  
+    docsList.firstElementChild.remove();
+
     // iterate through every dream and add it to our page
-    dreams.forEach(appendNewDream);
-  
+    docs.forEach(appendNewDocument);
+
     // listen for the form to be submitted and add a new dream when it is
-    dreamsForm.addEventListener("submit", event => {
+    docsForm.addEventListener("submit", event => {
       // stop our form submission from refreshing the page
       event.preventDefault();
 
       // get dream value and add it to the list
-      let newDream = dreamsForm.elements.dream.value;
-      dreams.push(newDream);
-      appendNewDream(newDream);
+      let newDoc = docsForm.elements.new_doc.value;
+      docs.push(newDoc);
+      appendNewDocument(newDoc);
 
       // reset form
-      dreamsForm.reset();
-      dreamsForm.elements.dream.focus();
+      docsForm.reset();
+      docsForm.elements.new_doc.focus();
     });
   });
