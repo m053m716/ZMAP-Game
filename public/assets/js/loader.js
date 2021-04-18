@@ -37,6 +37,39 @@ class Loader {
       u[i].innerHTML = new_str;
     } 
   }
+  addLogin(document) {
+    const new_str = `
+      <div class="modal-dialog modal-login">
+        <div class="modal-content">
+          <form action="https://zmap-game.glitch.me/login" method="post">
+            <div class="modal-header">				
+              <h4 class="modal-title">Login</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">				
+              <div class="form-group">
+                <label>Username</label>
+                <input type="text" class="form-control" required="required" name="uname">
+              </div>
+              <div class="form-group">
+                <div class="clearfix">
+                  <label>Password</label>
+                  <a href="#" class="float-right text-muted"><small>Forgot?</small></a>
+                </div>
+
+                <input type="password" class="form-control" required="required" name="pw">
+              </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <label class="form-check-label"><input type="checkbox" name="remember"> Remember me</label>
+              <input type="submit" class="btn btn-primary" value="Login">
+            </div>
+          </form>
+        </div>
+      </div>
+    `;
+    document.getElementById('loginModal').innerHTML = new_str;    
+  }
   addNavigation(document) {
     const new_str = `
       <div class="container topnav">
@@ -66,4 +99,5 @@ class Loader {
 const loader = new Loader();
 $( document ).ready(e => {
   loader.addNavigation(document);
+  loader.addLogin(document);
 });

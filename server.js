@@ -21,6 +21,9 @@ app.get("/characters", (request, response) => {
 app.get("/profile", (request, response) => {
   
 })
+app.get("/login", (request, response) => {
+  
+})
 
 // send the array of docs to the webpage
 app.get("/mongo/characters", async (request, response) => {

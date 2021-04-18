@@ -208,16 +208,17 @@ input {
 }
 .modal-login {
 	width: 320px;
-  border-radius: 25px;
+  border-radius: 30px;
 }
 .modal-login .modal-content {
-	border-radius: 25px;
+	border-radius: 30px;
 	border: none;
   width: 320px;
 }
 .modal-login .modal-content form {
   width: 320px;
   border-radius: 30px;
+  border-width: 8px;
   background: #d3d3d3;
 }
 .modal-login .modal-header {
@@ -225,30 +226,29 @@ input {
 	justify-content: center;
   border-radius: 30px;
 	background: #f2f2f2;
-  margin: 10px;
+  margin-top: 10px;
 }
 .modal-login .modal-body {
 	padding: 30px;
   border-radius: 30px;
-  margin: 10px;
 }
 .modal-login .modal-footer {
 	background: #f2f2f2;
   border-radius: 30px;
-  margin: 10px;
+  margin-bottom: 10px;
 }
 .modal-login h4 {
 	text-align: center;
 	font-size: 26px;
 }
 .modal-login label {
+  display: inline-block;
 	font-weight: normal;
 	font-size: 13px;
-  border-radius: 30px;
 }
 .modal-login .form-control, .modal-login .btn {
 	min-height: 38px;
-	border-radius: 5px; 
+	border-radius: 15px; 
 }
 .modal-login .hint-text {
 	text-align: center;
@@ -257,13 +257,9 @@ input {
 	position: absolute;
 	top: 25px;
 	right: 25px;
-  width: 25px;
-  height: 25px
 }
 .modal-login .checkbox-inline {
 	margin-top: 12px;
-  width: 50px;
-  height: 50px;
 }
 .modal-login input[type="checkbox"] {
 	position: relative;
