@@ -1,13 +1,11 @@
 // server.js
 // External imports (see package.json)
-require("dotenv").config();
-const MongoAccessor = require('./mongo-accessor');
+const { server } = require('./mongo-accessor');
 
 // we've started you off with Express (https://expressjs.com/)
 // but feel free to use whatever libraries or frameworks you'd like through `package.json`.
 const express = require("express");
 const app = express();
-const cluster = new MongoAccessor(process.env.DB_URI);
 
 // make all the files in 'public' available
 // https://expressjs.com/en/starter/static-files.html
