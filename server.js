@@ -23,8 +23,9 @@ app.get("/characters", (request, response) => {
 
 // send the array of docs to the webpage
 app.get("/mongo/characters", async (request, response) => {
-  await cluster.get_docs('Characters', 'Saltmarsh', request.query);
-  
+  let query = JSON.stringify(request.query);
+  console.log(query);
+  await cluster.get_docs('Characters', 'Saltmarsh', query);
   response.json(cluster.data);
 });
 

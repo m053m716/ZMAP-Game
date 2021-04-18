@@ -35,8 +35,11 @@ class Client {
       .then(response => response.json()) // parse the JSON from the server
       .then(data => {
         // remove the loading text
-        this.characters.firstElementChild.remove();
-
+        var child = this.characters.lastElementChild; 
+        while (child) {
+            this.characters.removeChild(child);
+            child = this.characters.lastElementChild;
+        }
         // format the data
         let characters = Client._formatCharacters(data);
         characters.forEach(ch => this.appendCharacter(ch));
