@@ -39,13 +39,10 @@ class Loader {
   }
   addLogin(document) {
     const new_str = `
-      <div class="text-center">
-        <a href="#loginModal" class="trigger-btn" data-toggle="modal">Login</a>
-      </div>
       <div id="loginModal" class="modal fade">
         <div class="modal-dialog modal-login">
           <div class="modal-content">
-            <form action="https://zmap-game.glitch.me/login" method="post">
+            <form id="loginForm" action="https://zmap-game.glitch.me/login" method="post">
               <div class="modal-header">				
                 <h4 class="modal-title">Login</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -89,7 +86,7 @@ class Loader {
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="https://zmap-game.glitch.me/characters">Characters</a></li>
-            <li><a href="https://zmap-game.glitch.me/profile/login">Profile</a></li>
+            <li><a href="#loginModal" name="profile_link" data-toggle="modal">Profile</a></li>
             <li><a href="https://zmap-game.glitch.me/game">Play</a></li>
           </ul>
         </div>

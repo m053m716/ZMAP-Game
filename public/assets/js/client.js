@@ -45,6 +45,10 @@ class Client {
         characters.forEach(ch => this.appendCharacter(ch));
     });
   }
+  startSession(e) { // attempt to start client session on login
+    e.preventDefault();
+    console.log(e);
+  }
 };
   
 const client = new Client(document);
