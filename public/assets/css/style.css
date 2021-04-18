@@ -62,8 +62,8 @@ h6 {
   padding-top: 50px;
   padding-bottom: 50px;
   text-align: center;
-  color: #d0a6a3;
-  background: url(../img/intro-bg.jpg)no-repeatcentercenter;
+  color: #a2e3d3;
+  background: url(https://cdn.glitch.com/f42a6ce3-5f21-499a-946d-5369378095d8%2FSALTMARSH.jpg);
   background-size: cover;
 }
 .intro-message {
@@ -78,11 +78,12 @@ h6 {
 }
 .intro-divider {
   width: 400px;
-  border-top: 1px solid #d0a6a3;
+  border-top: 1px solid #f8f8f8;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 .intro-message > h3 {
-  text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+  text-shadow: 4px 4px 7px rgba(0.5, 0, 0, 0.95);
+  color: #c10808
 }
 @media (max-width: 767px) {
   .intro-message {
@@ -111,7 +112,7 @@ h6 {
 }
 .content-section-a {
   padding: 50px 0;
-  background-color: #d0a6a3;
+  background-color: #f8f8f8;
 }
 .content-section-b {
   padding: 50px 0;
@@ -128,8 +129,8 @@ h6 {
 }
 .banner {
   padding: 100px 0;
-  color: #d0a6a3;
-  background: url(../img/banner-bg.jpg)no-repeatcentercenter;
+  color: #f8f8f8;
+  background: url(https://cdn.glitch.com/f42a6ce3-5f21-499a-946d-5369378095d8%2FSALTMARSH.jpg?v=1618770630411)no-repeatcentercenter;
   background-size: cover;
 }
 .banner h2 {
