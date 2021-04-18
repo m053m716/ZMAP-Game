@@ -28,8 +28,8 @@ app.get("/", (request, response) => {
 
 // send the default array of docs to the webpage
 app.get("/docs", (request, response) => {
-  console.log(cluster.uri);
-  cluster.get_docs('Characters', 'Saltmarsh', {"type": "pc"}, response.json)
+  const p = cluster.get_docs('Characters', 'Saltmarsh', {"type": "pc"});
+  p.then(response.json(cluster.docs));
   // // express helps us take JS objects and send them as JSON
   // response.json(cluster.docs);
 });
