@@ -22,14 +22,18 @@ class PromiseHandler {
 module.exports = class MongoAccessor {
   constructor(uri) {
     this.uri = uri;
+    this.data = null;
     this.docs = [];
   }
   async get_docs(db, collection, query) {
     const client = new MongoClient(this.uri, {useNewUrlParser: true, useUnifiedTopology: true})
-    client.connect()
-      .then(() => console.log("Connection successful!"))
-      .catch(() => console.log("Connection error!"))
-    const findResult = client.db(db).collection(collection).find(query).toArray()
-      .then(() )
+    await client.connect()
+    this.data = await client.db(db).collection(collection).find(query).toArray()
+    this.docs.length = 0;
+    this.data.forEach(doc => {
+      this.docs.push(
+        "" + doc.name.first + " " + doc.name.last + ": " + doc.about
+      );
+    });
   }
 };
