@@ -24,39 +24,29 @@ module.exports = class MongoAccessor {
     this.uri = uri;
     this.docs = [];
   }
-  get_docs(db, collection, query, cb = null) {
-    const client = new MongoClient(this.uri, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    });
-    const out = client.connect(err_conn => {
-      if (err_conn) {
-        console.log("Connection error!");
-        console.log(err_conn);
-      } else {
-        const p = client
-          .db(db)
-          .collection(collection)
-          .find(query)
-          .toArray(async (err_query, result) => {
-            if (err_query) {
-              console.log("Query error!");
-              console.log(err_query);
-            } else {
-              this.docs.length = 0;
-              await result.forEach(doc => {
-                this.docs.push(
-                  "" + doc.name.first + " " + doc.name.last + ": " + doc.about
-                );
-              });
-              if (cb !== null) {
-                cb(result);
+  async get_docs(db, collection, query) {
+    const client = new MongoClient(this.uri, {useNewUrlParser: true, useUnifiedTopology: true})
+    return client.connect((err, cli) => {
+        if (err) {
+          console.log("Connection error!");
+          console.log(err);
+        } else {
+          return cli.db(db).collection(collection)
+            .find(query)
+            .toArray((err, result) => {
+              if (err) {
+                console.log("Query error!");
+                console.log(err);
+              } else {
+                this.docs.length = 0;
+                result.forEach(doc => {
+                  this.docs.push(
+                    "" + doc.name.first + " " + doc.name.last + ": " + doc.about
+                  );
+                });
               }
-            }
-          })
-        return p
-      }
-    }).then(() => client.close());
-    return out;
+            })
+        }
+      })
   }
 };
