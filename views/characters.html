@@ -10,12 +10,11 @@
 
     <title>ZMAP Saltmarsh 5e</title>
 
-    <link id="favicon" rel="icon" href="https://lh6.googleusercontent.com/QOYxDOMfbTBqrhQAqjt8hBST_R_GyamrpGm4h16JHAv_6TcTP3Hwr-Xr_gp_lbxUqGSTM_ZqM-4SpqV-uRPJ_js=w16383" type="image/x-icon">
+    <link id="favicon" rel="icon" type="image/x-icon" href="https://lh6.googleusercontent.com/QOYxDOMfbTBqrhQAqjt8hBST_R_GyamrpGm4h16JHAv_6TcTP3Hwr-Xr_gp_lbxUqGSTM_ZqM-4SpqV-uRPJ_js=w16383">
     <!-- import the webpage's stylesheet -->
-    <link rel="stylesheet" href="/style.css">
-
-    <!-- import the webpage's client-side javascript file -->
-    <script src="/client.js" defer></script>
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
   </head>
   <body>
     <header>
@@ -30,7 +29,7 @@
       <form>
         <label>
           New Character Filter
-          <input name="game_filter" type="text" maxlength="100" required placeholder="Game (e.g. Saltmrash)">
+          <input name="game_filter" type="text" maxlength="100" required placeholder="Game (e.g. Saltmarsh)">
         </label>
         <button type="submit" id="submit-filter">Add Document</button>
       </form>
@@ -42,11 +41,8 @@
       </section>
     </main>
 
-    <footer>Made with <a href="https://glitch.com">Glitch</a>!</footer>
-
-    <!-- include the Glitch button to show what the webpage is about and
-          to make it easier for folks to view source and remix -->
-    <div class="glitchButton" style="position:fixed;top:2em;right:20px;"></div>
-    <script src="https://button.glitch.me/button.js" defer></script>
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="/client.js" defer></script>
   </body>
 </html>
