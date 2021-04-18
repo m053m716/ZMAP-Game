@@ -40,33 +40,9 @@
       </div>
     </nav>
     <!-- END NAV BAR -->
-    <div id="contact" class="banner"></div>
     
     <!-- BEGIN HEADER -->
-    <div id="about" class="intro-header">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="intro-message">
-              <h1>ZMAP 5e Campaign</h1>
-              <h3>Saltmarsh: Dead Men Tell No Tales</h3>
-              <hr class="intro-divider" />
-              <ul class="list-inline intro-social-buttons">
-                <li>
-                  <a href="https://zmap-game.glitch.me/characters" class="btn btn-default btn-lg"><span class="network-name">Characters</span></a>
-                </li>
-                <li>
-                  <a href="https://zmap-game.glitch.me/profile/login" class="btn btn-default btn-lg"><span class="network-name">Profile</span></a                  >
-                </li>
-                <li>
-                  <a href="https://zmap-game.glitch.me/game" class="btn btn-default btn-lg"><span class="network-name">Play</span></a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div id="about" class="intro-header"></div>
     <!-- END HEADER -->
     
     <!-- BEGIN SECITION-A -->
@@ -155,7 +131,30 @@
     </div>
     <!-- END SECTION-C -->
     
+    <div id="contact" class="banner">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6">
+            <h2>Join</h2>
+          </div>
+          <div class="col-lg-6">
+            <ul class="list-inline banner-social-buttons">
+              <li>
+                <a href="https://zmap-game.glitch.me/characters" class="btn btn-default btn-lg"><span class="network-name">Characters</span></a>
+              </li>
+              <li>
+                <a href="https://zmap-game.glitch.me/profile/login" class="btn btn-default btn-lg"><span class="network-name">Profile</span></a                  >
+              </li>
+              <li>
+                <a href="https://zmap-game.glitch.me/game" class="btn btn-default btn-lg"><span class="network-name">Play</span></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
     
+    <!-- START FOOTER -->
     <footer>
       <div class="container">
         <div class="row">
@@ -175,12 +174,16 @@
         </div>
       </div>
     </footer>
+    <!-- END FOOTER -->
+    
     <script src="assets/js/jquery.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/loader.js"></script>
     <script>
       "use strict";
-      loader.addBanner($('.banner'))
+      $( document ).ready(function() {
+          loader.addBanner(document)
+      });
     </script>
   </body>
 </html>
