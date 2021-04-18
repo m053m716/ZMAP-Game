@@ -4,8 +4,8 @@
 console.log("Hello (client) world!");
 
 // define variables that reference elements on our page
-const docsList = document.getElementById("documents");
-const docsForm = document.querySelector("form");
+const charactersList = document.getElementById("characters");
+const charactersForm = document.querySelector("form");
 
 // a helper function that creates a list item for a given dream
 function appendNewDocument(doc) {
@@ -15,7 +15,7 @@ function appendNewDocument(doc) {
 }
 
 // fetch the initial list of docs
-fetch("/docs")
+fetch("/mongo/characters")
   .then(response => response.json()) // parse the JSON from the server
   .then(docs => {
     // remove the loading text

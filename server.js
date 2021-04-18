@@ -30,15 +30,13 @@ app.get("/characters", (request, response) => {
 });
 
 // send the default array of docs to the webpage
-app.get("/docs", async (request, response) => {
-  await cluster.get_docs('Characters', 'Saltmarsh', {type: "pc"})
-  console.group("cluster.data");
-  console.log(cluster.data);
-  console.groupEnd("cluster.data");
-  response.json(cluster.docs);
-  // // express helps us take JS objects and send them as JSON
-  // response.json(cluster.docs);
-});
+// app.get("/mongo/characters", async (request, response) => {
+//   await cluster.get_docs('Characters', 'Saltmarsh', {type: "pc"})
+//   console.group("cluster.data");
+//   console.log(cluster.data);
+//   console.groupEnd("cluster.data");
+//   response.json(cluster.docs);
+// });
 
 // listen for requests :)
 const listener = app.listen(process.env.PORT, () => {
