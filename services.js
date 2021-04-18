@@ -18,7 +18,9 @@ class ServerSession {
     this.key = ed.getPublicKey(this._key);
     this.clients = [];
   }
-  startClient
+  startClient() {
+    
+  }
 }
 
 
