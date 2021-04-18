@@ -26,7 +26,7 @@ class Loader {
         <a href="https://zmap-game.glitch.me/characters" class="btn btn-default btn-lg"><span class="network-name">Characters</span></a>
       </li>
       <li>
-        <a href="https://zmap-game.glitch.me/profile/login" class="btn btn-default btn-lg"><span class="network-name">Profile</span></a                  >
+        <a href="#loginModal" class="btn btn-default btn-lg" name="profile_link" data-toggle="modal"><span class="network-name">Profile</span></a>
       </li>
       <li>
         <a href="https://zmap-game.glitch.me/game" class="btn btn-default btn-lg"><span class="network-name">Play</span></a>
@@ -39,36 +39,41 @@ class Loader {
   }
   addLogin(document) {
     const new_str = `
-      <div class="modal-dialog modal-login">
-        <div class="modal-content">
-          <form action="https://zmap-game.glitch.me/login" method="post">
-            <div class="modal-header">				
-              <h4 class="modal-title">Login</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            </div>
-            <div class="modal-body">				
-              <div class="form-group">
-                <label>Username</label>
-                <input type="text" class="form-control" required="required" name="uname">
+      <div class="text-center">
+        <a href="#loginModal" class="trigger-btn" data-toggle="modal">Login</a>
+      </div>
+      <div id="loginModal" class="modal fade">
+        <div class="modal-dialog modal-login">
+          <div class="modal-content">
+            <form action="https://zmap-game.glitch.me/login" method="post">
+              <div class="modal-header">				
+                <h4 class="modal-title">Login</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
-              <div class="form-group">
-                <div class="clearfix">
-                  <label>Password</label>
-                  <a href="#" class="float-right text-muted"><small>Forgot?</small></a>
+              <div class="modal-body">				
+                <div class="form-group">
+                  <label>Username</label>
+                  <input type="text" class="form-control" required="required" name="uname">
                 </div>
+                <div class="form-group">
+                  <div class="clearfix">
+                    <label>Password</label>
+                    <a href="#" class="float-right text-muted"><small>Forgot?</small></a>
+                  </div>
 
-                <input type="password" class="form-control" required="required" name="pw">
+                  <input type="password" class="form-control" required="required" name="pw">
+                </div>
               </div>
-            </div>
-            <div class="modal-footer justify-content-between">
-              <label class="form-check-label"><input type="checkbox" name="remember"> Remember me</label>
-              <input type="submit" class="btn btn-primary" value="Login">
-            </div>
-          </form>
+              <div class="modal-footer justify-content-between">
+                <label class="form-check-label"><input type="checkbox" name="remember"> Remember me</label>
+                <input type="submit" class="btn btn-primary" value="Login">
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     `;
-    document.getElementById('loginModal').innerHTML = new_str;    
+    document.getElementById('loginDiv').innerHTML = new_str;    
   }
   addNavigation(document) {
     const new_str = `

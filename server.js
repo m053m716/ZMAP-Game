@@ -18,11 +18,13 @@ app.get("/", (request, response) => {
 app.get("/characters", (request, response) => {
   response.sendFile(__dirname + "/views/characters.html");
 });
+
 app.get("/profile", (request, response) => {
-  
+  response.status(201).send('Profile request received.');  
 })
+
 app.get("/login", (request, response) => {
-  
+  response.status(201).send('Login requeset received.');
 })
 
 // send the array of docs to the webpage
