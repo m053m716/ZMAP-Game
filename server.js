@@ -1,6 +1,6 @@
 // server.js
 // External imports (see package.json)
-const { server } = require('./mongo-accessor');
+const { server } = require('./services');
 
 // we've started you off with Express (https://expressjs.com/)
 // but feel free to use whatever libraries or frameworks you'd like through `package.json`.
@@ -25,8 +25,8 @@ app.get("/profile", (request, response) => {
 // send the array of docs to the webpage
 app.get("/mongo/characters", async (request, response) => {
   console.log(request.query);
-  await cluster.get_docs('Characters', 'Saltmarsh', request.query);
-  response.json(cluster.data);
+  await server.get_docs('Characters', 'Saltmarsh', request.query);
+  response.json(server.session.data);
 });
 
 // listen for requests :)
