@@ -29,12 +29,12 @@ module.exports = class MongoAccessor {
       useNewUrlParser: true,
       useUnifiedTopology: true
     });
-    client.connect(async (err_conn) => {
+    const out = client.connect(err_conn => {
       if (err_conn) {
         console.log("Connection error!");
         console.log(err_conn);
       } else {
-        await client
+        const p = client
           .db(db)
           .collection(collection)
           .find(query)
@@ -53,9 +53,10 @@ module.exports = class MongoAccessor {
                 cb(result);
               }
             }
-          });
-        client.close();
+          })
+        return p
       }
-    });
+    }).then(() => client.close());
+    return out;
   }
 };
