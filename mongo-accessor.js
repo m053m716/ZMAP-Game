@@ -26,27 +26,10 @@ module.exports = class MongoAccessor {
   }
   async get_docs(db, collection, query) {
     const client = new MongoClient(this.uri, {useNewUrlParser: true, useUnifiedTopology: true})
-    return client.connect((err, cli) => {
-        if (err) {
-          console.log("Connection error!");
-          console.log(err);
-        } else {
-          return cli.db(db).collection(collection)
-            .find(query)
-            .toArray((err, result) => {
-              if (err) {
-                console.log("Query error!");
-                console.log(err);
-              } else {
-                this.docs.length = 0;
-                result.forEach(doc => {
-                  this.docs.push(
-                    "" + doc.name.first + " " + doc.name.last + ": " + doc.about
-                  );
-                });
-              }
-            })
-        }
-      })
+    client.connect()
+      .then(() => console.log("Connection successful!"))
+      .catch(() => console.log("Connection error!"))
+    const findResult = client.db(db).collection(collection).find(query).toArray()
+      .then(() )
   }
 };
