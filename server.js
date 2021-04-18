@@ -29,14 +29,14 @@ app.get("/characters", (request, response) => {
   response.sendFile(__dirname + "/views/characters.html");
 });
 
-// send the default array of docs to the webpage
-// app.get("/mongo/characters", async (request, response) => {
-//   await cluster.get_docs('Characters', 'Saltmarsh', {type: "pc"})
-//   console.group("cluster.data");
-//   console.log(cluster.data);
-//   console.groupEnd("cluster.data");
-//   response.json(cluster.docs);
-// });
+// send the array of docs to the webpage
+app.get("/mongo/characters", async (request, response) => {
+  await cluster.get_docs('Characters', 'Saltmarsh', request.query);
+  console.group("cluster.data");
+  console.log(cluster.data);
+  console.groupEnd("cluster.data");
+  response.json(cluster.docs);
+});
 
 // listen for requests :)
 const listener = app.listen(process.env.PORT, () => {

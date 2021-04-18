@@ -17,6 +17,7 @@ class Client {
   }
   filterCharacters(query) {
     // fetch the initial list of docs
+    let u = new URLSearchParams(query).toString();
     fetch("/mongo/characters")
       .then(response => response.json()) // parse the JSON from the server
       .then(characters => {
@@ -30,7 +31,7 @@ class Client {
         characters.forEach(ch => this.appendCharacter(ch));
 
         // listen for the form to be submitted and add a new dream when it is
-        this.characters.form.addEventListener("submit", event => {
+        this.filters.form.addEventListener("submit", event => {
           // stop our form submission from refreshing the page
           event.preventDefault();
 
@@ -47,3 +48,6 @@ class Client {
   }
 }
 const client = new Client(document);
+$( document ).ready(function() {
+  client.filterCharacters({game: ""});
+});
