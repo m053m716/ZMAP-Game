@@ -7,15 +7,7 @@ const MongoAccessor = require('./mongo-accessor');
 // but feel free to use whatever libraries or frameworks you'd like through `package.json`.
 const express = require("express");
 const app = express();
-
-// our default array of docs
-// const docs = [
-//   "Find and count some sheep",
-//   "Climb a really tall mountain",
-//   "Wash the dishes"
-// ];
 const cluster = new MongoAccessor(process.env.DB_URI);
-
 
 // make all the files in 'public' available
 // https://expressjs.com/en/starter/static-files.html
@@ -32,10 +24,7 @@ app.get("/characters", (request, response) => {
 // send the array of docs to the webpage
 app.get("/mongo/characters", async (request, response) => {
   await cluster.get_docs('Characters', 'Saltmarsh', request.query);
-  console.group("cluster.data");
-  console.log(cluster.data);
-  console.groupEnd("cluster.data");
-  response.json(cluster.docs);
+  response.json(cluster.data);
 });
 
 // listen for requests :)

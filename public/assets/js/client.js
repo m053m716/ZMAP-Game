@@ -1,6 +1,6 @@
 // client-side javascript
 class Client {
-  constructor(document) {
+  constructor(document, formatter) {
     this.document = document;
     this.filters = document.querySelector("form");
     this.characters = document.getElementById("characters");
@@ -12,6 +12,15 @@ class Client {
     const newListItem = this.document.createElement("li");
     newListItem.innerText = character;
     this.characters.appendChild(newListItem);
+  }
+  static _formatCharacters(data) {
+    const characters_list = [];
+    data.forEach(character => {
+      characters_list.push(
+        "" + character.name.first + " " + character.name.last + ": " + character.about
+      );
+    });
+    return characters_list
   }
   applyFilters() {
     // Get query object
@@ -25,14 +34,15 @@ class Client {
     let u = new URLSearchParams(query).toString();
     fetch("/mongo/characters")
       .then(response => response.json()) // parse the JSON from the server
-      .then(characters => {
+      .then(data => {
         // remove the loading text
         if (this.flags.new) {
           this.characters.firstElementChild.remove();
           this.flags.new = false;
         }
 
-        // iterate through every dream and add it to our page
+        // format the data
+        let characters = this._formatCharacters(data);
         characters.forEach(ch => this.appendCharacter(ch));
     });
   }
