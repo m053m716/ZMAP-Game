@@ -1,6 +1,6 @@
 // server.js
-// where your node app starts
-
+// External imports (see package.json)
+require("dotenv").config();
 const MongoAccessor = require('./mongo-accessor');
 
 // we've started you off with Express (https://expressjs.com/)
@@ -14,7 +14,7 @@ const app = express();
 //   "Climb a really tall mountain",
 //   "Wash the dishes"
 // ];
-const cluster = MongoAccessor();
+const cluster = new MongoAccessor(process.env.DB_URI);
 
 
 // make all the files in 'public' available
@@ -27,10 +27,11 @@ app.get("/", (request, response) => {
 });
 
 // send the default array of docs to the webpage
-app.get("/docs", async (request, response) => {
-  await cluster.get_docs('Characters','Saltmarsh',{"type": "pc"})
-  // express helps us take JS objects and send them as JSON
-  response.json(cluster.docs);
+app.get("/docs", (request, response) => {
+  console.log(cluster.uri);
+  cluster.get_docs('Characters', 'Saltmarsh', {"type": "pc"}, response.json)
+  // // express helps us take JS objects and send them as JSON
+  // response.json(cluster.docs);
 });
 
 // listen for requests :)
