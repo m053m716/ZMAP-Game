@@ -17,46 +17,32 @@
     <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
   </head>
   <body>
-    <header>
-      <h1>Saltmarsh 5e</h1>
-    </header>
+    <!-- BEGIN NAV BAR -->
+    <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation"></nav>
+    <!-- END NAV BAR -->
+    <h2>Characters</h2>
+    <p>Filters</p>
+    <form>
+      <div class="content-section-a">
+        <h3>Game</h3>
+        <input name="game" type="text" maxlength="100" required placeholder="Game (Saltmarsh)">
+      </div>
+      <div class="content-section-b">
+        <h3>Type</h3>
+        <input name="type" type="text" maxlength="100" required placeholder="(e.g. pc/npc)">
+      </div>
+      <div class="content-section-a">
+        <h3>Race</h3>
+        <input name="race" type="text" maxlength="100" required placeholder="(e.g. halfling)">
+      </div>
+      <button type="submit" id="submit-filter">Filter</button>
+    </form>
 
-    <main>
-      <h2>Characters</h2>
-
-      <p>Filters</p>
-
-      <form>
-        <div class="content-section-a">
-          <label>
-            New Character Filter
-            <input name="game_filter" type="text" maxlength="100" required placeholder="Game (e.g. Saltmarsh)">
-          </label>
-          <button type="submit" id="submit-filter">Add Document</button>
-        </div>
-        <div class="content-section-b">
-          <label>
-            New Character Filter
-            <input name="game_filter" type="text" maxlength="100" required placeholder="Game (e.g. Saltmarsh)">
-          </label>
-          <button type="submit" id="submit-filter">Add Document</button>
-        </div>
-        <div class="content-section-a">
-          <label>
-            New Character Filter
-            <input name="game_filter" type="text" maxlength="100" required placeholder="Game (e.g. Saltmarsh)">
-          </label>
-          <button type="submit" id="submit-filter">Add Document</button>
-        </div>
-        
-      </form>
-
-      <section class="characters">
-        <ul id="characters">
-          <em>loading docs&hellip;</em>
-        </ul>
-      </section>
-    </main>
+    <section class="characters">
+      <ul id="characters">
+        <em>loading docs&hellip;</em>
+      </ul>
+    </section>
 
     <script src="assets/js/jquery.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
