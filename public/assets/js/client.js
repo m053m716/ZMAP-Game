@@ -66,8 +66,7 @@ class Client {
   startSession(e) { // attempt to start client session on login
     e.preventDefault();
     const hash = Client.digestMessage(e.submitter.form.elements.pw.value);
-    e.submitter.form.elements.uname.value
-    Client.postData(this.uri('/login'), { answer: 42 })
+    Client.postData(this.uri('/login'), { uname: e.submitter.form.elements.uname.value, pw: hash })
       .then(data => {
         console.log(data); // JSON data parsed by `data.json()` call
       });
