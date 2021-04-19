@@ -1,12 +1,16 @@
 // client-side javascript
 class Client {
   constructor(document, formatter) {
+    this.base_uri = 'https://zmap-game.glitch.me';
     this.document = document;
     this.filters = null;
     this.characters = null;
     this.flags = {
       new: true
     }
+  }
+  uri(route = '') {
+    return this.base_uri + route; 
   }
   setupCharacters() {
     this.filters = document.getElementById("filtersForm");
@@ -53,9 +57,36 @@ class Client {
         characters.forEach(ch => this.appendCharacter(ch));
     });
   }
+  static async digestMessage(message) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(message);
+    const hash = await crypto.subtle.digest('SHA-512', data);
+    return hash;
+  }
   startSession(e) { // attempt to start client session on login
     e.preventDefault();
-    console.log(e.);
+    const hash = Client.digestMessage(e.submitter.form.elements.pw.value);
+    e.submitter.form.elements.uname.value
+    Client.postData(this.uri('/login'), { answer: 42 })
+      .then(data => {
+        console.log(data); // JSON data parsed by `data.json()` call
+      });
+  }
+  static async postData(url = '', data = {}) {
+    const response = await fetch(url, {
+      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      mode: 'cors', // no-cors, *cors, same-origin
+      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: 'same-origin', // include, *same-origin, omit
+      headers: {
+        'Content-Type': 'application/json'
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      redirect: 'follow', // manual, *follow, error
+      referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      body: JSON.stringify(data) // body data type must match "Content-Type" header
+    });
+    return response.json(); // parses JSON response into native JavaScript objects
   }
 };
   
