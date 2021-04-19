@@ -58,20 +58,23 @@ class Client {
         characters.forEach(ch => this.appendCharacter(ch));
     });
   }
-  startSession(e) { // attempt to start client session on login
+  async startSession(e) { // attempt to start client session on login
     e.preventDefault();
-    const hash = Client.digestMessage(e.submitter.form.elements.pw.value);
     const url = this.uri('/login');
+    console.log(url);
+    const hash = await Client.digestMessage(e.submitter.form.elements.pw.value)
+    console.log(hash);
     Client.postData(url, { uname: e.submitter.form.elements.uname.value, pw: hash })
       .then(data => {
         console.log(data); // JSON data parsed by `data.json()` call
       });
   }
   static async digestMessage(message) {
-    const encoder = new TextEncoder();
-    const data = encoder.encode(message);
-    const hash = await crypto.subtle.digest('SHA-512', data);
-    return hash;
+    const msgUint8 = new TextEncoder().encode(message);
+    const hashBuffer = await crypto.subtle.digest('SHA-512', msgUint8);           // hash the message
+    const hashArray = Array.from(new Uint8Array(hashBuffer));                     // convert buffer to byte array
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join(''); // convert bytes to hex string
+    return hashHex;
   }
   static async postData(url = '', data = {}) {
     const response = await fetch(url, {
@@ -87,6 +90,24 @@ class Client {
       referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
       body: JSON.stringify(data) // body data type must match "Content-Type" header
     });
+    // console.log(response);
+    return response.json(); // parses JSON response into native JavaScript objects
+  }
+  static async getData(url = '', data = {}) {
+    const response = await fetch(url, {
+      method: 'GET', // *GET, POST, PUT, DELETE, etc.
+      mode: 'cors', // no-cors, *cors, same-origin
+      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: 'same-origin', // include, *same-origin, omit
+      headers: {
+        'Content-Type': 'application/json'
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      redirect: 'follow', // manual, *follow, error
+      referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      body: JSON.stringify(data) // body data type must match "Content-Type" header
+    });
+    console.log(response);
     return response.json(); // parses JSON response into native JavaScript objects
   }
 };
