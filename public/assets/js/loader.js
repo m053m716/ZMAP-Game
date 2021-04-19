@@ -37,6 +37,30 @@ class Loader {
       u[i].innerHTML = new_str;
     } 
   }
+  addFilter(document, type) {
+    var new_str, id;
+    switch (type){
+      case "race":
+        new_str = `
+          <select id="race_selector" name="race" required>
+            <option value="Elf">Elf</option>
+            <option value="Gnome">Gnome</option>
+            <option value="Half-Elf">Half-Elf</option>
+            <option value="Half-Orc">Half-Orc</option>
+            <option value="Halfling">Halfling</option>
+            <option value="Human">Human</option>
+            
+            
+          </select>
+          <input name="race" type="text" maxlength="100" required placeholder="(e.g. halfling)">
+        `
+        break;
+      case "game": 
+        break;
+      case "type": 
+        break;
+    }
+  }
   addLogin(document) {
     const new_str = `
       <div id="loginModal" class="modal fade">
