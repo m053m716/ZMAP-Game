@@ -2,11 +2,19 @@
 class Client {
   constructor(document, formatter) {
     this.document = document;
-    this.filters = document.querySelector("form");
-    this.characters = document.getElementById("characters");
+    this.filters = null;
+    this.characters = null;
     this.flags = {
       new: true
     }
+  }
+  setupCharacters() {
+    this.filters = document.getElementById("filtersForm");
+    this.characters = document.getElementById("characters");
+    this.filters.addEventListener("submit", event => {
+      event.preventDefault();
+      client.applyFilters();
+    })
   }
   appendCharacter(character) {
     const newListItem = this.document.createElement("li");
@@ -47,20 +55,8 @@ class Client {
   }
   startSession(e) { // attempt to start client session on login
     e.preventDefault();
-    console.log(e);
+    console.log(e.);
   }
 };
   
 const client = new Client(document);
-$( document ).ready(function() {
-  // listen for the form to be submitted and add a new dream when it is
-  client.filters.addEventListener("submit", event => {
-    // stop our form submission from refreshing the page
-    event.preventDefault();
-    client.applyFilters();
-    // // reset form
-    // client.filters.reset();
-    // client.filters.elements.game.focus();
-    console.log("client-side interface is ready");
-  });
-});
