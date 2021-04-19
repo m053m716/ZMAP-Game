@@ -57,18 +57,10 @@ class Database {
       cb(result);
     }    
   }
-  async check_password(password, signature, key, on_successful, on_unsuccessful) {
+  async check_password(password, signature, key) {
     const hashed_message = await Database.encrypt(password);
     const isSigned = await ed.verify(signature, hashed_message, key);
-    console.log(isSigned);
-    if (isSigned) {
-      on_successful(JSON.stringify({'validated': true}))
-
-    } else {
-        on_unsuccessful(JSON.stringify({'validated': false}))
-
-    }
-    
+    return isSigned;
   }
   static async encrypt(password) {
     const hash = crypto.createHash('sha512');

@@ -25,9 +25,12 @@ app.get("/profile", (request, response) => {
 
 app.get("/login", async (request, response) => {
   const data = await server.get_user(request.query.uid);
-  server.check_password(request.query.pw, data.signature, data.key, 
-                        request.res.status(200).send, 
-                        request.res.status(401).send);
+  const isSigned = await server.check_password(request.query.pw, data.signature, data.key); 
+  if (isSigned) {
+    response.status(200).send('Sign-in successful!');
+  } else {
+    response.status(401).send('Sign-in unsuccessful.');
+  }
 })
 
 // send the array of docs to the webpage
