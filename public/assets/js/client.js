@@ -62,7 +62,7 @@ class Client {
     e.preventDefault();
     const hash = await Client.digestMessage(e.submitter.form.elements.pw.value)
     const url = this.uri('/login');
-    Client.postData(url, { uid: e.submitter.form.elements.uid.value, pw: hash })
+    Client.getData(url, { uid: e.submitter.form.elements.uid.value, pw: hash })
       .then(data => {
         console.log(data); // JSON data parsed by `data.json()` call
       });
@@ -90,8 +90,9 @@ class Client {
     console.log(response);
     return response.json(); // parses JSON response into native JavaScript objects
   }
-  static async getData(url = '') {
-    const response = await fetch(url, {
+  static async getData(url = '', query = {}) {
+    let u = new URLSearchParams(query).toString();
+    const response = await fetch(url + '?' + u, {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.
       mode: 'same-origin', // no-cors, *cors, same-origin
       cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached

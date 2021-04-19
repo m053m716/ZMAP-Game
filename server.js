@@ -23,13 +23,11 @@ app.get("/profile", (request, response) => {
   response.status(201).send('Profile request received.');  
 })
 
-app.post("/login", async (request, response) => {
-  // console.log(request);
-  console.log(response);
-  const data = await server.get_user(request.data.uid);
-  server.check_password(request.data.pw, data.signature, data.key, 
-                        response.status(200).send, 
-                        response.status(401).send);
+app.get("/login", async (request, response) => {
+  const data = await server.get_user(request.query.uid);
+  server.check_password(request.query.pw, data.signature, data.key, 
+                        request.res.status(200).send, 
+                        request.res.status(401).send);
 })
 
 // send the array of docs to the webpage
