@@ -37,29 +37,50 @@ class Loader {
       u[i].innerHTML = new_str;
     } 
   }
-  addFilter(document, type) {
+  addFilters(document) {
+    this._addFilter(document, "race");
+    this._addFilter(document, "game");
+    this._addFilter(document, "type");
+  }
+  _addFilter(document, type) {
     var new_str, id;
     switch (type){
       case "race":
         new_str = `
-          <select id="race_selector" name="race" required>
+          <select id="race_selector" name={type} size="7" form="filtersForm">
             <option value="Elf">Elf</option>
             <option value="Gnome">Gnome</option>
             <option value="Half-Elf">Half-Elf</option>
             <option value="Half-Orc">Half-Orc</option>
             <option value="Halfling">Halfling</option>
             <option value="Human">Human</option>
-            
-            
+            <option value="Tiefling">Tiefling</option>            
           </select>
-          <input name="race" type="text" maxlength="100" required placeholder="(e.g. halfling)">
         `
+        id = "raceFilter";
         break;
       case "game": 
+        new_str = `
+          <select id="game_selector" name={type} size="4" form="filtersForm" autofocus>
+            <option value="Saltmarsh">Saltmarsh</option>
+          </select>
+        `
+        id = "gameFilter";
         break;
       case "type": 
+        new_str = `
+          <select id="type_selector" name={type} size="4" form="filtersForm">
+            <option value="pc">pc</option>
+            <option value="npc">npc</option>
+          </select>
+        `
+        id = "typeFilter";
+        break;
+      default:
+        console.log("Invalid type: " + type);
         break;
     }
+    document.getElementById(id).innerHTML = new_str;
   }
   addLogin(document) {
     const new_str = `

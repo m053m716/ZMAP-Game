@@ -53,9 +53,7 @@
                       PC or NPC?
                     </p>
                   </div>
-                  <div class="col-lg-3 col-sm-4">
-                    <input name="type" type="text" maxlength="100" required placeholder="(e.g. pc/npc)">
-                  </div>
+                  <div id="typeFilter" class="col-lg-3 col-sm-4"></div>
                 </div>
               </div>
             </div>
@@ -70,9 +68,7 @@
                       Which fantasy race?
                     </p>
                   </div>
-                  <div id="raceFilter" class="col-lg-3 col-sm-4">
-                    
-                  </div>
+                  <div id="raceFilter" class="col-lg-3 col-sm-4"></div>
                 </div>
               </div>
             </div>
@@ -103,6 +99,7 @@
     <script src="assets/js/client.js"></script>
     <script defer>
       "use strict";
+      loader.addFilters(document);
       client.setupCharacters();
     </script>
   </body>
