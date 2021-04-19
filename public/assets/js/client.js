@@ -9,8 +9,9 @@ class Client {
       new: true
     }
   }
-  uri(route = '') {
-    return this.base_uri + route; 
+  uri(route) {
+    const full_uri = this.base_uri + route; 
+    return full_uri;
   }
   setupCharacters() {
     this.filters = document.getElementById("filtersForm");
@@ -57,19 +58,20 @@ class Client {
         characters.forEach(ch => this.appendCharacter(ch));
     });
   }
+  startSession(e) { // attempt to start client session on login
+    e.preventDefault();
+    const hash = Client.digestMessage(e.submitter.form.elements.pw.value);
+    const url = this.uri('/login');
+    Client.postData(url, { uname: e.submitter.form.elements.uname.value, pw: hash })
+      .then(data => {
+        console.log(data); // JSON data parsed by `data.json()` call
+      });
+  }
   static async digestMessage(message) {
     const encoder = new TextEncoder();
     const data = encoder.encode(message);
     const hash = await crypto.subtle.digest('SHA-512', data);
     return hash;
-  }
-  startSession(e) { // attempt to start client session on login
-    e.preventDefault();
-    const hash = Client.digestMessage(e.submitter.form.elements.pw.value);
-    Client.postData(this.uri('/login'), { uname: e.submitter.form.elements.uname.value, pw: hash })
-      .then(data => {
-        console.log(data); // JSON data parsed by `data.json()` call
-      });
   }
   static async postData(url = '', data = {}) {
     const response = await fetch(url, {

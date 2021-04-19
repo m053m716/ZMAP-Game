@@ -125,7 +125,7 @@
       $(document).ready((e) => {
         loader.addBanner(document);
         loader.addButtons(document);
-        document.getElementById('loginForm').addEventListener('submit', client.startSession);
+        document.getElementById('loginForm').addEventListener('submit', e => client.startSession(e));
       })
     </script>
   </body>

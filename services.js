@@ -35,18 +35,14 @@ class Database {
     await client.connect()
     this.session.data = await client.db(db).collection(collection).find(query).toArray()
   }
-  async get_user(name) {
+  async get_user(uid) {
     const client = new MongoClient(this.uri, {
       useNewUrlParser: true,
       useUnifiedTopology: true
     });
     await client.connect();
-    (async err => {
-      if (err) throw err;
-      const collection = client.db("User").collection("Profile");
-      const data = await collection.findOne({"name": name})
-      return data
-    })
+    const data = client.db("User").collection("Profile").findOne({"uid": uid});
+    return data
   }
   async safe_password(password, cb=null) {
     const hashed_message = await Database.encrypt(password);
@@ -60,12 +56,19 @@ class Database {
       cb(result);
     }    
   }
-  async check_password(password, signature, key, response=null) {
+  async check_password(password, signature, key, on_successful=null, on_unsuccessful=null) {
     const hashed_message = await Database.encrypt(password);
     const isSigned = await ed.verify(signature, hashed_message, key);
-    if (response !== null) {
-      response({'validated': isSigned});
+    if (isSigned) {
+      if (on_successful !== null) {
+        on_successful({'validated': isSigned});
+      }
+    } else {
+      if (on_unsuccessful !== null) {
+        on_unsuccessful({'validated': isSigned});
+      }
     }
+    
   }
   static async encrypt(password) {
     const hash = crypto.createHash('sha512');
