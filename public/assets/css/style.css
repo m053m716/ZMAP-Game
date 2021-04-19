@@ -281,3 +281,9 @@ input {
 	display: inline-block;
 	margin: 100px auto;
 }
+select {
+  width: 80%;
+  height: 80%;
+  margin: 10px;
+  font-size: 14px;
+}

@@ -45,9 +45,9 @@ class Loader {
   _addFilter(document, type) {
     var new_str, id;
     switch (type){
-      case "race":
+      case "race": // ` is "grave accent" --> javascript "template literal"
         new_str = `
-          <select id="race_selector" name={type} size="7" form="filtersForm">
+          <select id="race_selector" name=${type} size="7" form="filtersForm">
             <option value="Elf">Elf</option>
             <option value="Gnome">Gnome</option>
             <option value="Half-Elf">Half-Elf</option>
@@ -61,7 +61,7 @@ class Loader {
         break;
       case "game": 
         new_str = `
-          <select id="game_selector" name={type} size="4" form="filtersForm" autofocus>
+          <select id="game_selector" name=${type} size="7" form="filtersForm" autofocus>
             <option value="Saltmarsh">Saltmarsh</option>
           </select>
         `
@@ -69,7 +69,7 @@ class Loader {
         break;
       case "type": 
         new_str = `
-          <select id="type_selector" name={type} size="4" form="filtersForm">
+          <select id="type_selector" name=${type} size="7" form="filtersForm">
             <option value="pc">pc</option>
             <option value="npc">npc</option>
           </select>
