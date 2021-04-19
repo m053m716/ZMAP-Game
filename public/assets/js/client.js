@@ -9,10 +9,6 @@ class Client {
       new: true
     }
   }
-  uri(route) {
-    const full_uri = this.base_uri + route; 
-    return full_uri;
-  }
   setupCharacters() {
     this.filters = document.getElementById("filtersForm");
     this.characters = document.getElementById("characters");
@@ -60,9 +56,8 @@ class Client {
   }
   async startSession(e) { // attempt to start client session on login
     e.preventDefault();
-    const url = this.uri('/login');
     const hash = await Client.digestMessage(e.submitter.form.elements.pw.value)
-    Client.postData(url, { uid: e.submitter.form.elements.uid.value, pw: hash })
+    Client.postData('/login', { uid: e.submitter.form.elements.uid.value, pw: hash })
       .then(data => {
         console.log(data); // JSON data parsed by `data.json()` call
       });
@@ -74,7 +69,7 @@ class Client {
     const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join(''); // convert bytes to hex string
     return hashHex;
   }
-  static async postData(url = '', data = {}) {
+  async postData(url = '', data = {}) {
     const response = await fetch(url, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       mode: 'cors', // no-cors, *cors, same-origin
@@ -91,7 +86,7 @@ class Client {
     // console.log(response);
     return response.json(); // parses JSON response into native JavaScript objects
   }
-  static async getData(url = '', data = {}) {
+  async getData(url = '', data = {}) {
     const response = await fetch(url, {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.
       mode: 'cors', // no-cors, *cors, same-origin
@@ -99,6 +94,7 @@ class Client {
       credentials: 'same-origin', // include, *same-origin, omit
       headers: {
         'Content-Type': 'application/json'
+        ''
         // 'Content-Type': 'application/x-www-form-urlencoded',
       },
       redirect: 'follow', // manual, *follow, error

@@ -23,7 +23,7 @@ app.get("/profile", (request, response) => {
   response.status(201).send('Profile request received.');  
 })
 
-app.post("/login", async (request, response) => {
+app.get("/login", async (request, response) => {
   console.log(request);
   const data = await server.get_user(request.data.uid);
   server.check_password(request.data.pw, data.signature, data.key, 
