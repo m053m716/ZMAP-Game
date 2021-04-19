@@ -61,10 +61,8 @@ class Client {
   async startSession(e) { // attempt to start client session on login
     e.preventDefault();
     const url = this.uri('/login');
-    console.log(url);
     const hash = await Client.digestMessage(e.submitter.form.elements.pw.value)
-    console.log(hash);
-    Client.postData(url, { uname: e.submitter.form.elements.uname.value, pw: hash })
+    Client.postData(url, { uid: e.submitter.form.elements.uid.value, pw: hash })
       .then(data => {
         console.log(data); // JSON data parsed by `data.json()` call
       });

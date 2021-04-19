@@ -41,7 +41,7 @@ class Database {
       useUnifiedTopology: true
     });
     await client.connect();
-    const data = client.db("User").collection("Profile").findOne({"uid": uid});
+    const data = client.db("User").collection("Identity").findOne({"uid": uid});
     return data
   }
   async safe_password(password, cb=null) {
@@ -52,6 +52,7 @@ class Database {
       key: public_key,
       signature: signature
     }
+    console.log(result);
     if (cb !== null) {
       cb(result);
     }    

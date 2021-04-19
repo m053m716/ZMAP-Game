@@ -24,7 +24,8 @@ app.get("/profile", (request, response) => {
 })
 
 app.post("/login", async (request, response) => {
-  const data = await server.get_user(request.data.uname);
+  console.log(request);
+  const data = await server.get_user(request.data.uid);
   server.check_password(request.data.pw, data.signature, data.key, 
                         response.status(200).send, 
                         response.status(401).send);

@@ -50,7 +50,7 @@ class Loader {
               <div class="modal-body">				
                 <div class="form-group">
                   <label>Username</label>
-                  <input type="text" class="form-control" required="required" name="uname">
+                  <input type="text" class="form-control" required="required" name="uid">
                 </div>
                 <div class="form-group">
                   <div class="clearfix">
