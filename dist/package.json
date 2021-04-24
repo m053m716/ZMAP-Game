@@ -2,13 +2,13 @@
   "name": "zmap-game",
   "version": "0.0.2",
   "description": "Slack D&D 5e application.",
-  "main": "server.js",
+  "main": "main.js",
   "config" : { 
       "name": "zmap5e", 
       "port" : "6969" 
   }, 
   "scripts": {
-    "start": "node server.js"
+    "start": "node main.js"
   },
   "dependencies": {
     "express": "^4.17.1",

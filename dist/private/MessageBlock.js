@@ -1,7 +1,3 @@
-const fs = require('fs');
-const my = require('./axios-config');
-const logs = require('./debug-console');
-
 function randomString(length, chars) {
     var result = '';
     for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
@@ -9,11 +5,12 @@ function randomString(length, chars) {
 }
 
 module.exports = class MessageBlock {
-  constructor() {
-    this.token = process.env.SLACK_BOT_TOKEN;
-    this.has_block = false
-    this.cfg = {
-      'Content-Type': 'application/json'
+  constructor(app) {
+      this.app = app;
+      this.token = process.env.SLACK_BOT_TOKEN;
+      this.has_block = false
+      this.cfg = {
+        'Content-Type': 'application/json'
     }
     this.user = {
       id: null, 
@@ -53,13 +50,6 @@ module.exports = class MessageBlock {
     this.has_block = false
     this.id.public = this.id.public + 1;
     this.id.private = randomString(8, '0123456789abcdef');
-    // data_structure.Tracking.current.id = this.id;
-    // fs.chmodSync("notes.json", 0o666);
-    // fs.unlinkSync("notes.json");
-    // fs.writeFileSync("notes.json", JSON.stringify(data_structure, null, 2), function writeJSON(err) {
-    //   if (err) return console.log(err);
-    // });
-    // fs.chmodSync("notes.json", 0o666);
   }
   delete_all_notification_messages() {
     this.messages.forEach(ts => this.delete_existing_message(ts));
@@ -74,7 +64,7 @@ module.exports = class MessageBlock {
       channel: this.channel,
       ts: ts
     };
-    return my.axios.post("chat.delete", delete_args, this.cfg)
+    return this.app.axios.post("chat.delete", delete_args, this.cfg)
       .catch(e => logs.def_error(e, "Invalid delete"));
   }
   full_url(target) {
