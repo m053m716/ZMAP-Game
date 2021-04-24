@@ -71,5 +71,9 @@ class Database {
 };
 
 const server = new Database(process.env.DB_URI, process.env.DB_SECRET);
+const session = {
+    game: new GameSession(), 
+    client: new ClientSession()
+}
 
-module.exports = { server };
+module.exports = { server, session };

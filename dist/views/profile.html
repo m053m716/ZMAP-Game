@@ -10,11 +10,12 @@
 
     <title>ZMAP Saltmarsh 5e</title>
 
-    <link id="favicon" rel="icon" type="image/x-icon" href="https://lh6.googleusercontent.com/QOYxDOMfbTBqrhQAqjt8hBST_R_GyamrpGm4h16JHAv_6TcTP3Hwr-Xr_gp_lbxUqGSTM_ZqM-4SpqV-uRPJ_js=w16383">
+    <link id="favicon" rel="icon" type="image/x-icon" href="https://cdn.glitch.com/f42a6ce3-5f21-499a-946d-5369378095d8%2FStanford-Block-S.png?v=1618772400524">
     <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css"/>
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+    
   </head>
   <body>
     <!-- BEGIN NAV BAR -->
@@ -24,7 +25,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-6 col-sm-4">
-          <form id="filtersForm">
+          <form>
             <div class="content-section-a">
               <div class="container">
                 <div class="row">
@@ -36,7 +37,9 @@
                       Which game? (There is only the one.)
                     </p>
                   </div>
-                  <div id="gameFilter" class="col-lg-3 col-sm-4"></div>
+                  <div class="col-lg-3 col-sm-4">
+                    <input name="game" type="text" maxlength="100" required placeholder="Game (Saltmarsh)">
+                  </div>
                 </div>
               </div>
             </div>
@@ -51,7 +54,9 @@
                       PC or NPC?
                     </p>
                   </div>
-                  <div id="typeFilter" class="col-lg-3 col-sm-4"></div>
+                  <div class="col-lg-3 col-sm-4">
+                    <input name="type" type="text" maxlength="100" required placeholder="(e.g. pc/npc)">
+                  </div>
                 </div>
               </div>
             </div>
@@ -66,7 +71,9 @@
                       Which fantasy race?
                     </p>
                   </div>
-                  <div id="raceFilter" class="col-lg-3 col-sm-4"></div>
+                  <div class="col-lg-3 col-sm-4">
+                    <input name="race" type="text" maxlength="100" required placeholder="(e.g. halfling)">
+                  </div>
                 </div>
               </div>
             </div>
@@ -88,17 +95,12 @@
           </ul>
         </div>
       </div>
-    </div>   
+    </div>    
     <div class="container" id="loginDiv"></div>
 
     <script src="assets/js/jquery.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/loader.js"></script>
-    <script src="assets/js/client.js"></script>
-    <script defer>
-      "use strict";
-      loader.addFilters(document);
-      client.setupCharacters();
-    </script>
+    <script src="assets/js/client.js" defer></script>
   </body>
 </html>
