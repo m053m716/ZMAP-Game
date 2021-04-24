@@ -20,21 +20,23 @@ class Loader {
     document.getElementById("about").innerHTML = new_str;
     
   }
-  addButtons(document) {
-    const new_str = `
-      <li>
-        <a href="https://zmap-game.glitch.me/characters" class="btn btn-default btn-lg"><span class="network-name">Characters</span></a>
-      </li>
-      <li>
-        <a href="#loginModal" class="btn btn-default btn-lg" name="profile_link" data-toggle="modal"><span class="network-name">Profile</span></a>
-      </li>
-      <li>
-        <a href="https://zmap-game.glitch.me/game" class="btn btn-default btn-lg"><span class="network-name">Play</span></a>
-      </li>
-    `;
+  addButtons(document, new_str=null) {
+    if (new_str===null) {
+      new_str = `
+          <li>
+            <a href="/characters" class="btn btn-default btn-lg"><span class="network-name">Characters</span></a>
+          </li>
+          <li>
+            <a href="#loginModal" class="btn btn-default btn-lg" name="profile_link" data-toggle="modal"><span class="network-name">Profile</span></a>
+          </li>
+          <li>
+            <a href="/game" class="btn btn-default btn-lg"><span class="network-name">Play</span></a>
+          </li>
+        `;
+    } 
     const u = document.getElementsByClassName('list-inline');
     for (var i = 0; i < u.length; i++) {
-      u[i].innerHTML = new_str;
+        u[i].innerHTML = new_str;
     } 
   }
   addFilters(document) {
@@ -95,19 +97,23 @@ class Loader {
               <div class="modal-body">				
                 <div class="form-group">
                   <label>Username</label>
-                  <input type="text" class="form-control" required="required" name="uid">
+                  <input type="text" class="form-control text-input" required="required" name="uid">
                 </div>
                 <div class="form-group">
                   <div class="clearfix">
                     <label>Password</label>
-                    <a href="#" class="float-right text-muted"><small>Forgot?</small></a>
                   </div>
-
-                  <input type="password" class="form-control" required="required" name="pw">
+                  <input type="password" class="form-control text-input" required="required" name="pw">
                 </div>
               </div>
-              <div class="modal-footer justify-content-between">
-                <label class="form-check-label"><input type="checkbox" name="remember"> Remember me</label>
+              <div class="modal-footer" width="inherit">
+                <div>
+                    <label for="remember" class="checkbox-label">Remember me</label>
+                    <input type="checkbox" name="remember" class="checkbox">
+                </div>
+                <div>
+                    <a href="/signup" class="text-muted"><small>Create New Account</small></a>
+                </div>
                 <input type="submit" class="btn btn-primary" value="Login" onclick="client.startSession">
               </div>
             </form>

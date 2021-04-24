@@ -13,94 +13,90 @@ const MessageBlock = require("./private/MessageBlock");
 // Handle deployment of application home page
 // const appHomeServices = require("./private/home-tab"); 
 
-class User {
+class User extends express {
     constructor(id="none", username="none", name="none") {
+        super();
         this.id = id;
         this.username = username;
         this.name = name;       
     }
 }
 
-class ClientSession {
-  constructor() {
-    
-  }
-}
 
-
-class GameSession {
+class Session extends express {
     constructor() {
-      this.data = null;
-      this._key = ed.utils.randomPrivateKey();
-      this.key = ed.getPublicKey(this._key);
-      this.clients = [];
+        super();
+        this.data = null;
+        this._key = ed.utils.randomPrivateKey();
+        this.key = ed.getPublicKey(this._key);
+        this.users = [];
     }
-    startClient() {
-          
-    }
-    addClient(id="none", username="none", name="none") {
+    addUser(id="none", username="none", name="none") {
         let user = new User(id, username, name);
-        this.clients.push(user);
+        this.users.push(user);
+    }
+    removeUser() {
+        
     }
 }
-
 
 class Database {
-  constructor(uri, secret) {
-    this.uri = uri;
-    this.secret = secret;
-    this.session = new GameSession();
-  }
-  async get_docs(db, collection, query) {
-    const client = new MongoClient(this.uri, {useNewUrlParser: true, useUnifiedTopology: true})
-    await client.connect()
-    this.session.data = await client.db(db).collection(collection).find(query).toArray()
-  }
-  async get_user(uid) {
-    const client = new MongoClient(this.uri, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    });
-    await client.connect();
-    const data = client.db("User").collection("Identity").findOne({"uid": uid});
-    return data
-  }
-  async safe_password(password, cb=null) {
-    const hashed_message = await Database.encrypt(password);
-    const public_key = await ed.getPublicKey(this.secret);
-    const signature = await ed.sign(hashed_message, this.secret);
-    const result = { 
-      key: public_key,
-      signature: signature
+    constructor(uri, secret) {
+        this.uri = uri;
+        this.secret = secret;
+        this.session = new Session();
     }
-    console.log(result);
-    if (cb !== null) {
-      cb(result);
-    }    
-  }
-  async check_password(password, signature, key) {
-    const hashed_message = await Database.encrypt(password);
-    const isSigned = await ed.verify(signature, hashed_message, key);
-    return isSigned;
-  }
-  static async encrypt(password) {
-    const hash = crypto.createHash('sha512');
-    hash.update(password);
-    const hashed_message = await hash.digest('hex');
-    return hashed_message
-  }
+    async get_docs(db, collection, query) {
+        const client = new MongoClient(this.uri, {useNewUrlParser: true, useUnifiedTopology: true})
+        await client.connect()
+        this.session.data = await client.db(db).collection(collection).find(query).toArray()
+    }
+    async get_user(uid) {
+        const client = new MongoClient(this.uri, {
+          useNewUrlParser: true,
+          useUnifiedTopology: true
+        });
+        await client.connect();
+        const data = client.db("User").collection("Identity").findOne({"uid": uid});
+        return data
+    }
+    async safe_password(password, cb=null) {
+        const hashed_message = await Database.encrypt(password);
+        const public_key = await ed.getPublicKey(this.secret);
+        const signature = await ed.sign(hashed_message, this.secret);
+        const result = { 
+          key: public_key,
+          signature: signature
+        }
+        console.log(result);
+        if (cb !== null) {
+          cb(result);
+        }    
+    }
+    async check_password(password, signature, key) {
+        const hashed_message = await Database.encrypt(password);
+        const isSigned = await ed.verify(signature, hashed_message, key);
+        return isSigned;
+    }
+    static async encrypt(password) {
+        const hash = crypto.createHash('sha512');
+        hash.update(password);
+        const hashed_message = await hash.digest('hex');
+        return hashed_message
+    }
 };
 
-class ZMAP extends express {
+module.exports = class ZMAP extends express {
     constructor(static_folder="public") {
         super();
         // Configure AXIOS message handler
         this.axios = require("./private/axios-config.js").axios;
         // Create new Dice and Slack (block) objects
-        this.block = new MessageBlock(); // Slack "Block" message
-        this.dice = new DiceRoller();    // Handle dice generation
+        this.block = new MessageBlock(this); // Slack "Block" message
+        this.dice = new DiceRoller(this);    // Handle dice generation
         this.signature = require("./private/authenticate"); // Handle verification of signature from Slack SECRET
         this.logs = require("./private/debug-console"); // Make console debugging easier  (maybe):
+        this.db = new Database(process.env.DB_URI, process.env.DB_SECRET);
         const options = {
           dotfiles: 'allow',
           etag: false,
@@ -112,16 +108,12 @@ class ZMAP extends express {
               res.set('x-timestamp', Date.now());
           }
         }
+        this.routePage = (route="/", page="/views/index.html") => ZMAP._routePage(this, route, page);
         this.use(express.static(static_folder)); // make the files in this folder publically available
     }
+    static _routePage(app=null, route="/", page="/views/index.html") {
+        app.get(route, (request, response) => {
+          response.sendFile(__dirname + page);
+        });
+    }
 }
-
-const server = new Database(process.env.DB_URI, process.env.DB_SECRET);
-const session = {
-    game: new GameSession(), 
-    client: new ClientSession()
-}
-
-const app = new ZMAP("public");
-
-module.exports = { app, server, session };

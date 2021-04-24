@@ -198,7 +198,7 @@ form .content-section-b {
   border-top: none;
   border-bottom: none;
 }
-input {
+.text-input {
   width: 250px;
   border-radius: 30px;
   padding-top: 2em;
@@ -223,25 +223,25 @@ input {
 .modal-login .modal-header {
 	position: relative;
 	justify-content: center;
-  border-radius: 30px;
+    border-radius: 30px;
 	background: #f2f2f2;
-  margin-top: 10px;
+    margin-top: 10px;
 }
 .modal-login .modal-body {
 	padding: 30px;
-  border-radius: 30px;
+    border-radius: 30px;
 }
 .modal-login .modal-footer {
 	background: #f2f2f2;
-  border-radius: 30px;
-  margin-bottom: 10px;
+    border-radius: 30px;
+    margin-bottom: 10px;
 }
 .modal-login h4 {
 	text-align: center;
 	font-size: 26px;
 }
-.modal-login label {
-  display: inline-block;
+.modal-login .modal-footer label {
+    display: inline-flex;
 	font-weight: normal;
 	font-size: 13px;
 }
@@ -257,12 +257,15 @@ input {
 	top: 25px;
 	right: 25px;
 }
-.modal-login .checkbox-inline {
-	margin-top: 12px;
+.checkbox {
+    display: inline-flex;
+    text-align: right;
+    align-self: flex-end;
 }
-.modal-login input[type="checkbox"] {
-	position: relative;
-	top: 1px;
+.checkbox-label {
+    display: inline-flex;
+    text-align: left;
+    align-self: flex-start;
 }
 .modal-login .btn {
 	min-width: 100px;

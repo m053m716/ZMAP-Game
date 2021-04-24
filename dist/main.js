@@ -1,10 +1,10 @@
 // main.js Runs everything
-const { app, server, session } = require('./services');
+const ZMAP = require('./services');
+const app = new ZMAP("public");
+app.routePage("/","/views/index.html");
+app.routePage("/characters", "/views/characters.html");
+app.routePage("/OAuth", "/views/OAuth.html");
 
-// https://expressjs.com/en/starter/basic-routing.html
-app.get("/", (request, response) => {
-  response.sendFile(__dirname + "/views/index.html");
-});
 app.get("/characters", (request, response) => {
   response.sendFile(__dirname + "/views/characters.html");
 });
@@ -26,7 +26,7 @@ app.get("/login", async (request, response) => {
 // Now we handle the "Actions" requests, directing them to "actions" sub-path of "slack".
 // This is essentially the same handling syntax as used for "Events"
 app.post("/slack/actions", async (req, res) => {
-  if (await !signature.validate(req, res)) {
+  if (await !app.signature.validate(req, res)) {
     // Sends status messages back immediately
     console.warn("Invalid signature.");
     return;
@@ -119,7 +119,7 @@ app.post("/slack/actions", async (req, res) => {
 // Last we handle the "coffee" slash command.
 // This should essentially always just do the same thing so there is no case-handling.
 app.post("/slack/commands", async (req, res) => {
-  if (await !signature.validate(req, res)) {
+  if (await !app.signature.validate(req, res)) {
     // Sends status messages back immediately
     console.warn("Invalid signature.");
     return;

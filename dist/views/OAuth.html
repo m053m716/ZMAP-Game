@@ -1,0 +1,44 @@
+<!-- This is a static file -->
+<!-- served from your routes in server.js -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Authenticate Application">
+
+    <title>ZMAP Saltmarsh 5e</title>
+
+    <link id="favicon" rel="icon" type="image/x-icon" href="https://cdn.glitch.com/f42a6ce3-5f21-499a-946d-5369378095d8%2FStanford-Block-S.png?v=1618772400524">
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css"/>
+    
+  </head>
+  <body>
+    <!-- BEGIN NAV BAR -->
+    <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation"></nav>
+    <!-- END NAV BAR -->
+    <!-- BEGIN HEADER -->
+    <div id="about" class="intro-header"></div>
+    <div class="container" id="loginDiv"></div>
+    <!-- END HEADER -->
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/loader.js"></script>
+    <script src="assets/js/client.js" defer></script>
+    <script defer>
+      "use strict";
+      $(document).ready((e) => {
+            loader.addBanner(document);
+            loader.addButtons(document, `
+                <li>
+                    <a href="/OAuth/confirm" class="btn btn-default btn-lg"><span class="network-name">Confirm</span></a>
+                </li>
+                `);
+      });
+    </script>
+  </body>
+</html>
