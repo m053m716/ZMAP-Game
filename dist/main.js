@@ -1,46 +1,5 @@
-// server.js
-// External imports (see package.json)
-const { server } = require('./services');
-
-// we've started you off with Express (https://expressjs.com/)
-// but feel free to use whatever libraries or frameworks you'd like through `package.json`.
-const express = require("express");
-const app = express();
-
-const cors = require("cors"); // See: https://expressjs.com/en/resources/middleware/cors.html   Cross-origin resources configuration
-const bodyParser = require("body-parser"); // See: https://www.npmjs.com/package/body-parser          Parses HTTP transaction body text prior to other handling
-const my = require("./private/axios-config.js"); // Configured AXIOS defaults
-const qs = require("qs");
-
-// Handle verification of signature from Slack SECRET
-const signature = require("./private/authenticate");
-
-// Handle server message-passing and data storage
-const { myDatabase } = require("./private/database");
-
-// Make console debugging easier  (maybe):
-const logs = require("./private/debug-console");
-
-// Main services that have core functionality in this application:
-// const appHomeServices = require("./private/home-tab"); // Handle deployment of application home page
-
-// DiceRoller class object that handles rolling dice
-const DiceRoller = require("./private/DiceRoller");
-const dice = new DiceRoller();
-
-// SaltBlock class object that handles voting on coffee etc.
-const MessageBlock = require("./private/MessageBlock");
-const actionBlock = new MessageBlock();
-const current_user = {
-  id: "none",
-  username: "none",
-  name: "none"
-};
-
-
-// make all the files in 'public' available
-// https://expressjs.com/en/starter/static-files.html
-app.use(express.static("public"));
+// main.js Runs everything
+const { app, server, session } = require('./services');
 
 // https://expressjs.com/en/starter/basic-routing.html
 app.get("/", (request, response) => {
@@ -76,7 +35,7 @@ app.post("/slack/actions", async (req, res) => {
   const { type, trigger_id, user, actions, view } = JSON.parse(
     req.body.payload
   );
-  logs.action(new Date(ts), type, trigger_id, user, actions ? actions : view);
+  app.logs.action(new Date(ts), type, trigger_id, user, actions ? actions : view);
   switch (type) {
     case "block_actions": {
       actions.forEach(async a => {
@@ -88,13 +47,13 @@ app.post("/slack/actions", async (req, res) => {
 //            appHomeServices
 //              .openModal(trigger_id)
 //              .then(resp =>
-//                logs.response(
+//                app.logs.response(
 //                  resp,
 //                  "appHomeServices.openModal (add_ click: success)"
 //                )
 //              )
 //              .catch(err =>
-//                logs.caught_error(
+//                app.logs.caught_error(
 //                  err,
 //                  "appHomeServices.openModal (add_ click: error)"
 //                )
@@ -140,13 +99,13 @@ app.post("/slack/actions", async (req, res) => {
 //      await appHomeServices
 //        .displayHome(req)
 //        .then(resp =>
-//          logs.response(
+//          app.logs.response(
 //            resp,
 //            "appHomeServices.displayHome (view_submission == success)"
 //          )
 //        )
 //        .catch(err =>
-//          logs.caught_error(
+//          app.logs.caught_error(
 //            err,
 //            "appHomeServices.displayHome (view_submission == error)"
 //          )
