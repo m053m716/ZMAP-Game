@@ -11,7 +11,7 @@ class ClientSession {
 }
 
 
-class ServerSession {
+class GameSession {
   constructor() {
     this.data = null;
     this._key = ed.utils.randomPrivateKey();
@@ -28,7 +28,7 @@ class Database {
   constructor(uri, secret) {
     this.uri = uri;
     this.secret = secret;
-    this.session = new ServerSession();
+    this.session = new GameSession();
   }
   async get_docs(db, collection, query) {
     const client = new MongoClient(this.uri, {useNewUrlParser: true, useUnifiedTopology: true})
