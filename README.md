@@ -1,30 +1,29 @@
-# hello-express
+# ZMAP-GAME #
+Temporary hosting for development of Slack D&D 5e API as well as website interface. 
+The javascript API is built around two main classes, one of which is public (`client`) and one that is private (`server`).   
 
-A server that serves a webpage, its resources, and some data
+## Client ##
+The `Client` is the part "seen" by the end-user. Nothing should ever be "calculated" on the client side; 
+instead, the client only requests that certain calculations are performed (such as a dice roll) and then those are done by the server.
 
+The only exception to this is the initial password salt and hash that happens on the client side so that the actual password is not transmitted directly.
 
-## Your Project
+## Server ##
+The `Server` actually consists of a few different objects responsible for:
+* User interactions (`session`), 
+* Storing data (`database`), and 
+* Handling random streams (`diceroller`)
 
-On the front-end,
+### Session ###
+There needs to be two types of sessions.
 
-- Edit `views/index.html` to change the content of the webpage
-- `public/client.js` is the javacript that runs when you load the webpage
-- `public/style.css` is the styles for `views/index.html`
-- Drag in `assets`, like images or music, to add them to your project
+#### Client-Session ####
+This object is created when a user logs in and is destroyed after either an idle-timeout occurs or the user logs out. 
+It handles the out-of-game client-server interactions like "User Profile" access etc.
 
-On the back-end,
+#### Game-Session ####
+This object is created when a user issues the "START_SESSION" command, and is destroyed when a user issues the "END_SESSION" command (or after an idle timeout). 
+It handles the within-game client-server interactions.
 
-- your app starts at `server.js`
-- add frameworks and packages in `package.json`
-- safely store app secrets in `.env` (nobody can see this but you and people you invite)
-
-Click `Show` in the header to see your app live. Updates to your code will instantly deploy.
-
-
-## Made by [Glitch](https://glitch.com/)
-
-**Glitch** is the friendly community where you'll build the app of your dreams. Glitch lets you instantly create, remix, edit, and host an app, bot or site, and you can invite collaborators or helpers to simultaneously edit code with you.
-
-Find out more [about Glitch](https://glitch.com/about).
-
-( ᵔ ᴥ ᵔ )
+### Database ###
+The database runs through `MongoDB`. This is a document-oriented database, which means that a given `MongoDB` 
