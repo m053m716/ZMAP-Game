@@ -101,9 +101,9 @@ module.exports = class ZMAP extends express {
           dotfiles: 'allow',
           etag: false,
           extensions: ['htm', 'html'],
-          index: false,
+          index: "views/index.html",
           maxAge: '1d',
-          redirect: false,
+          redirect: true,
           setHeaders: function (res, path, stat) {
               res.set('x-timestamp', Date.now());
           }

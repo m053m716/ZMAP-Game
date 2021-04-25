@@ -128,7 +128,7 @@ module.exports = class MessageBlock {
       icon_emoji: ":stanford:", 
       username: this.bot_username()
     };
-    my.axios.post("chat.postMessage", msg_args, this.cfg)
+    this.app.axios.post("chat.postMessage", msg_args, this.cfg)
       .then(p => 
       {
         logs.resolved(p);

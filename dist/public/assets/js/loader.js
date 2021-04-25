@@ -132,13 +132,13 @@ class Loader {
             <span class="icon-bar"></span> <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand topnav" href="https://zmap-game.glitch.me/">Home</a>
+          <a class="navbar-brand topnav" href="/">Home</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="https://zmap-game.glitch.me/characters">Characters</a></li>
+            <li><a href="/characters">Characters</a></li>
             <li><a href="#loginModal" name="profile_link" data-toggle="modal">Profile</a></li>
-            <li><a href="https://zmap-game.glitch.me/game">Play</a></li>
+            <li><a href="/game">Play</a></li>
           </ul>
         </div>
       </div>

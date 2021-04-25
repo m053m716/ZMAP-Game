@@ -5,23 +5,21 @@ app.routePage("/","/views/index.html");
 app.routePage("/characters", "/views/characters.html");
 app.routePage("/OAuth", "/views/OAuth.html");
 
-app.get("/characters", (request, response) => {
-  response.sendFile(__dirname + "/views/characters.html");
-});
-
 app.get("/profile", (request, response) => {
   response.status(201).send('Profile request received.');  
 })
 
-app.get("/login", async (request, response) => {
-  const data = await server.get_user(request.query.uid);
-  const isSigned = await server.check_password(request.query.pw, data.signature, data.key); 
-  if (isSigned) {
-    response.status(200).send('Sign-in successful!');
-  } else {
-    response.status(401).send('Sign-in unsuccessful.');
-  }
-})
+app.get("/login", async (request, response, next) => {
+      const data = await app.db.get_user(request.query.uid);
+      const isSigned = await app.db.check_password(request.query.pw, data.signature, data.key); 
+      if (isSigned) {
+          console.log("Successfully logged in!");
+          response.status(200).send('Sign-in successful!');
+      } else {
+          console.log("Failed login successfully!");
+          response.status(401).send('Sign-in unsuccessful.');
+      }
+    })
 
 // Now we handle the "Actions" requests, directing them to "actions" sub-path of "slack".
 // This is essentially the same handling syntax as used for "Events"
@@ -170,8 +168,8 @@ app.get("/slack/OAuth", async (req, res) => {
 // send the array of docs to the webpage
 app.get("/mongo/characters", async (request, response) => {
   console.log(request.query);
-  await server.get_docs('Characters', 'Saltmarsh', request.query);
-  response.json(server.session.data);
+  await app.db.get_docs('Characters', 'Saltmarsh', request.query);
+  response.json(app.db.session.data);
 });
 
 // listen for requests :)

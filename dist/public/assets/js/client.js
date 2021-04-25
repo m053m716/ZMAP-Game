@@ -1,7 +1,19 @@
 // client-side javascript
+
+// Shortcut for default fetch API headers
+class FetchHeaders extends Headers{
+    constructor(init={}) {
+        init['Content-Type'] = 'application/json', 
+        init['x-timestamp'] = Date.now();
+        super(init);
+    }
+}
+const headers = new FetchHeaders();
+
+// Runs the User client
 class Client {
   constructor(document, formatter) {
-    this.base_uri = 'https://zmap-game.glitch.me';
+    this.base_uri = document.documentURI;
     this.document = document;
     this.filters = null;
     this.characters = null;
@@ -63,9 +75,6 @@ class Client {
     const hash = await Client.digestMessage(e.submitter.form.elements.pw.value)
     const url = this.uri('/login');
     Client.getData(url, { uid: e.submitter.form.elements.uid.value, pw: hash })
-      .then(data => {
-        console.log(data); // JSON data parsed by `data.json()` call
-      });
   }
   static async digestMessage(message) {
     const msgUint8 = new TextEncoder().encode(message);
@@ -79,10 +88,8 @@ class Client {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       mode: 'same-origin', // no-cors, *cors, same-origin
       cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'same-origin', // include, *same-origin, omit
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      credentials: 'omit', // include, *same-origin, omit
+      headers: headers,
       redirect: 'follow', // manual, *follow, error
       referrerPolicy: 'same-origin', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
       body: JSON.stringify(data) // body data type must match "Content-Type" header
@@ -95,11 +102,9 @@ class Client {
     const response = await fetch(url + '?' + u, {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.
       mode: 'same-origin', // no-cors, *cors, same-origin
-      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'same-origin', // include, *same-origin, omit
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      cache: 'only-if-cached', // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: 'omit', // include, *same-origin, omit
+      headers: headers,
       redirect: 'follow', // manual, *follow, error
       referrerPolicy: 'same-origin', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     });
